@@ -1,0 +1,52 @@
+import { useState, useEffect } from "react";
+
+const courses = [
+  {
+    id: 1,
+    name: 'HTML, CSS'
+  },
+  {
+    id: 2,
+    name: 'JavaScript'
+  },
+  {
+    id: 3,
+    name: 'React'
+  }
+
+]
+function App() {
+  const [checked, setChecked] = useState([]);
+
+  const handleCheck = (id) => {
+    setChecked(prev => {
+      const isChecked = checked.includes(id)
+      if (isChecked) {
+        return checked.filter(item => item.id === id)
+      } else {
+        return [...prev, id]
+      }
+    })
+  }
+
+  const handleSubmit = () => {
+    console.log({ id: checked })
+  }
+  return (
+    <div className="App" style={{ padding: 20, margin: 20 }}>
+      {courses.map(course => (
+        <div key={course.id}>
+          <input
+            type="checkbox"
+            checked={checked.includes(course.id)}
+            onChange={() => handleCheck(course.id)}
+          />
+          {course.name}
+        </div>
+      ))}
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  )
+}
+
+export default App;
